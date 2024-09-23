@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 const LazyAdminPage = React.lazy(() => import("./pages/adminPage"));
 const LazyMainPage = React.lazy(() => import("./pages/mainPage"));
 
@@ -32,6 +32,7 @@ export default function App() {
             </React.Suspense>
           }
         />
+        <Route path="*" element={<Navigate to="/Hiring-Challenge" />} />
       </Routes>
     </div>
   );
