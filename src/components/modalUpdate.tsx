@@ -235,7 +235,7 @@ export default function ModalUpdatingUser({
                         },
                       }
                     )
-                    .then((res) => {
+                    .then(() => {
                       setSuccessFlag(true);
                       setAlertFlag(true);
 

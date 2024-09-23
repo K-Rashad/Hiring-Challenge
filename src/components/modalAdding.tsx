@@ -13,7 +13,6 @@ export default function ModalAddingMember() {
   const [suceessFlag, setSuccessFlag] = useState(false);
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
-
     console.log(import.meta.env.VITE_API_TOKEN);
 
     if (alertFlag) {
@@ -92,6 +91,7 @@ export default function ModalAddingMember() {
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
+                value={name}
               />
             </div>
           </div>
@@ -122,6 +122,7 @@ export default function ModalAddingMember() {
                       setvalidEmail(false);
                     }
                   }}
+                  value={email}
                 />
                 {!validEmail && (
                   <div className="label">
@@ -141,10 +142,9 @@ export default function ModalAddingMember() {
               <select
                 className="select select-bordered w-full focus:outline-none focus:border-mainDark"
                 onChange={(e) => setGender(e.target.value)}
+                value={gender}
               >
-                <option disabled selected>
-                  Gender
-                </option>
+                <option selected>Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
@@ -193,7 +193,11 @@ export default function ModalAddingMember() {
               isViolet={true}
               buttonDialogue="+ Add creator"
               additionClassName={`px-4 ${
-                validEmail && name && email && status && gender
+                validEmail &&
+                name &&
+                email &&
+                status &&
+                ["male", "female"].includes(gender)
                   ? ""
                   : "btn-disabled bg-slate-300 "
               }`}
@@ -217,7 +221,7 @@ export default function ModalAddingMember() {
                         },
                       }
                     )
-                    .then((res) => {
+                    .then(() => {
                       setAlertFlag(true);
                       setSuccessFlag(true);
 
@@ -225,10 +229,13 @@ export default function ModalAddingMember() {
                         "graph_adding_member"
                       );
                       if (modal) {
-                        setTimeout(
-                          () => (modal as HTMLDialogElement).close(),
-                          2000
-                        );
+                        setTimeout(() => {
+                          (modal as HTMLDialogElement).close();
+                          setName("");
+                          setEmail("");
+                          setGender("");
+                          setStatus("");
+                        }, 2000);
                       }
                     })
                     .catch((err) => {
