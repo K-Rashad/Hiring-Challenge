@@ -6,7 +6,7 @@ import Button from "./buttonComponent";
 export default function NavBar() {
   const navigation = useNavigate();
   const handleNav = () => {
-    navigation("/admin");
+    navigation("/Hiring-Challenge/admin");
   };
   const location = useLocation();
   return (
@@ -14,7 +14,7 @@ export default function NavBar() {
       {/* left div */}
       <div className="flex items-center font-graphik text-sm text-mainDark gap-10 relative">
         <div className="relative">
-          <a href="/">
+          <a href="/Hiring-Challenge">
             {" "}
             <Logo width="50" height="28" />
           </a>

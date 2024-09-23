@@ -25,7 +25,7 @@ export default function App() {
           }
         />
         <Route
-          path="/admin"
+          path="/Hiring-Challenge/admin"
           element={
             <React.Suspense fallback={<Spinner />}>
               <LazyAdminPage />

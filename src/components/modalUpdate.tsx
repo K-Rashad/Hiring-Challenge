@@ -21,6 +21,7 @@ export default function ModalUpdatingUser({
   const [status, setStatus] = useState("");
   const [validEmail, setvalidEmail] = useState(true);
   const [alertFlag, setAlertFlag] = useState(false);
+  const [suceessFlag, setSuccessFlag] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -46,24 +47,42 @@ export default function ModalUpdatingUser({
     <dialog id="modal_update_user" className="modal">
       <div
         role="alert"
-        className={`alert alert-error w-[300px] ${
-          alertFlag ? "" : "hidden"
-        } absolute z-50 top-10`}
+        className={`${
+          suceessFlag
+            ? "alert alert-success w-[350px]"
+            : "alert alert-error w-[300px]"
+        } ${alertFlag ? "" : "hidden"} absolute z-50 top-10`}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 shrink-0 stroke-current"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-        <span>{alertMessage}</span>
+        {suceessFlag ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 shrink-0 stroke-current"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 shrink-0 stroke-current"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        )}
+        <span>{!suceessFlag ? `${alertMessage}` : "Updated successfully"}</span>
       </div>
       <div className="modal-box  md:w-[700px] xl:w-1/2 max-w-[1000px] min-w-[400px] py-9 px-10 lg:px-20">
         <form method="dialog">
@@ -217,11 +236,16 @@ export default function ModalUpdatingUser({
                       }
                     )
                     .then((res) => {
-                      console.log(res.data);
+                      setSuccessFlag(true);
+                      setAlertFlag(true);
+
                       const modal =
                         document.getElementById("modal_update_user");
                       if (modal) {
-                        (modal as HTMLDialogElement).close();
+                        setTimeout(
+                          () => (modal as HTMLDialogElement).close(),
+                          2000
+                        );
                       }
                     })
                     .catch((err) => {
@@ -229,6 +253,7 @@ export default function ModalUpdatingUser({
                         `${err?.response?.data[0]?.field} ${err?.response?.data[0]?.message}`
                       );
                       setAlertFlag(true);
+                      setSuccessFlag(false);
                       console.log(err);
                     });
                 } catch (err) {
