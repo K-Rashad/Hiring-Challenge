@@ -1,6 +1,6 @@
-# Project Name
+# Hiring Challenge
 
-A brief description of your project.
+A website for creators.
 
 ## Table of Contents
 
