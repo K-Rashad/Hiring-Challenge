@@ -11,7 +11,7 @@ export default function App() {
     <div>
       <Routes>
         <Route
-          path="/"
+          path="/Hiring-Challenge"
           element={
             <React.Suspense
               fallback={
