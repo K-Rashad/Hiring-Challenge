@@ -38,6 +38,7 @@ Before you begin, make sure you have the following installed:
 5. Run the application locally
 
    npm run dev or yarn dev
+   Application will be running in the base URL 'Hiring-Challenge'
 
 # React + TypeScript + Vite
 
